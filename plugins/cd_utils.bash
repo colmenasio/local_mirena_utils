@@ -4,10 +4,11 @@ cd_ws() {
     LMU_LAST_PATH="$PWD"
     cd "${MIRENA_WS_DIR}"
 }
+alias ws=cd_ws
 
 cd_lmu() {
     LMU_LAST_PATH="$PWD"
-    cd "${MIRENA_WS_DIR}"
+    cd "${LMU_DIR}"
 }
 
 cd_back() {
