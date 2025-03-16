@@ -6,7 +6,7 @@ do
 	rm -fr ${MIRENA_WS_DIR}/install/${pkg} || echo "$pkg not found in install"
 	rm -fr ${MIRENA_WS_DIR}/build/${pkg} || echo "$pkg not found in build"
 
-	colcon build --packages-select $pkg --allow-overriding $pkg --cmake-clean-cache
+	colcon build --packages-select $pkg --allow-overriding $pkg --cmake-clean-cache --parallel-workers 16
 done
 
 # Source again the ros local setup
