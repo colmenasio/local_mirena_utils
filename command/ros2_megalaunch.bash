@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Flags:
-# -v Launch rviz2
-# -r Launch rqt
-
 # Parse flags:
 while [ $# -gt 0 ]
 do
@@ -18,11 +14,14 @@ do
 	shift
 done 
 
+
+trap "kill \$(pgrep -P $$)" EXIT
+
 ros2 run mirena_sim MirenaSim &
 ros2 run mirena_utilities remo_con &
 [ $flag_rqt ] && rqt &
 [ $flag_rviz ] && rviz2 &
 
-
+wait
 
 

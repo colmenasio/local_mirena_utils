@@ -21,6 +21,10 @@ set -e
 
 export MIRENA_WS_DIR=$(pwd)
 export LMU_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+export LMU_TEMP_DIR="${LMU_DIR}/temp"
+
+# Check LMU enviroment is correct
+[ -d $LMU_TEMP_DIR ] || { echo "[LMU] Temp directory not found, creating Temp dir"; mkdir -p $LMU_TEMP_DIR; }
 
 # Source Ros
 echo "[LMU] Sourcing ROS2"
