@@ -16,6 +16,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# CD to the ws directory
+[ -z ${MIRENA_WS_DIR} ] || cd ${MIRENA_WS_DIR}
+
 # Fully remove and rebuild ros packages
 for pkg in ${args[@]};
 do

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Regular Colors
 export LMU_BLACK='\033[0;30m'

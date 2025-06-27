@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 cd_ws() {
     LMU_LAST_PATH="$PWD"
