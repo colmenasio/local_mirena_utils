@@ -30,7 +30,7 @@ export LMU_TEMP_DIR="${LMU_DIR}/temp"
 # Source ROS
 echo "[LMU] Sourcing ROS2"
 source /opt/ros/jazzy/setup.zsh
-source "${MIRENA_WS_DIR}/install/local_setup.zsh"
+[ -d "${MIRENA_WS_DIR}/install" ] && source "${MIRENA_WS_DIR}/install/local_setup.zsh"
 
 # Source local plugins 
 echo "[LMU] Initializing Plugins"
