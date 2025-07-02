@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 
 # Parse arguments
@@ -30,6 +30,11 @@ do
 	colcon build --packages-select $pkg --allow-overriding $pkg --parallel-workers 16
 done
 
+# If its empty
+if [[ ${#args[@]} -eq 0 ]]; then
+	colcon build
+fi
+
 # Source again the ros local setup
-source ${MIRENA_WS_DIR}/install/local_setup.bash
+source ${MIRENA_WS_DIR}/install/local_setup.zsh
 
