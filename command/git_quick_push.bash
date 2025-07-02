@@ -1,20 +1,50 @@
 #!/bin/zsh
 
 
-# Check if an argument was provided
-if [ $# -eq 0 ]; then
-  echo "Usage: $0 \"commit message\""
+# Default flag values
+NO_PUSH=0
+
+# Usage function
+usage() {
+  echo "Usage: $0 [--no-push] \"commit message\""
+  echo ""
+  echo "Description:"
+  echo "  Adds all changes, commits with the given message, and pushes to remote."
+  echo ""
+  echo "Options:"
+  echo "  --no-push       Commit changes without pushing to remote"
   exit 1
+}
+
+# Parse all arguments
+for arg in "$@"; do
+  if [[ "$arg" == --* ]]; then
+    if [[ "$arg" == "--no-push" ]]; then
+	    NO_PUSH=$(( ! $NO_PUSH ))
+    else
+      echo "Unknown option: $arg"
+      usage
+    fi
+  else
+    if [[ -n "$COMMIT_MSG" ]]; then
+      echo "Error: Only one commit message allowed."
+      usage
+    fi
+    COMMIT_MSG="$arg"
+  fi
+done
+
+# Check if commit message is present
+if [[ -z "$COMMIT_MSG" ]]; then
+  echo "Error: Commit message is required."
+  usage
 fi
 
 # Sanitize the commit message
-commit_msg="$1"
-
-# Escape double quotes and backslashes
-sanitized_msg=$(printf '%s' "$commit_msg" | sed 's/\\/\\\\/g; s/"/\\"/g')
+sanitized_msg=$(printf '%s' "$COMMIT_MSG" | sed 's/\\/\\\\/g; s/"/\\"/g')
 
 # Git operations
 git add --all
 git commit -m "$sanitized_msg"
-git push
+[ $NO_PUSH ] || git push
 
