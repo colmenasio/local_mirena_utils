@@ -2,25 +2,25 @@
 
 
 # Default flag values
-NO_PUSH=0
+DO_PUSH=0
 
 # Usage function
 usage() {
-  echo "Usage: $0 [--no-push] \"commit message\""
+  echo "Usage: $0 [-p] \"commit message\""
   echo ""
   echo "Description:"
-  echo "  Adds all changes, commits with the given message, and pushes to remote."
+  echo "  Adds all changes, commits with the given message."
   echo ""
   echo "Options:"
-  echo "  --no-push       Commit changes without pushing to remote"
+  echo "  -p       Push to remote after commiting changes"
   exit 1
 }
 
 # Parse all arguments
 for arg in "$@"; do
-  if [[ "$arg" == --* ]]; then
-    if [[ "$arg" == "--no-push" ]]; then
-	    NO_PUSH=$(( ! $NO_PUSH ))
+  if [[ "$arg" == -* ]]; then
+    if [[ "$arg" == "-p" ]]; then
+	    DO_PUSH=$(( ! $DO_PUSH ))
     else
       echo "Unknown option: $arg"
       usage
@@ -46,5 +46,5 @@ sanitized_msg=$(printf '%s' "$COMMIT_MSG" | sed 's/\\/\\\\/g; s/"/\\"/g')
 # Git operations
 git add --all
 git commit -m "$sanitized_msg"
-[ $NO_PUSH ] || git push
+[ $DO_PUSH ] && git push
 
